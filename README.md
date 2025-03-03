@@ -134,11 +134,9 @@ There are currently no automated tests for this project
 
 ## Documentation
 
-* [OpenWeather API Documentation](https://openweathermap.org/api)
-* [Open Weather Geocoder Api](https://openweathermap.org/api/geocoding-api)
-* [Open Weather 5 Day Forecast API](https://openweathermap.org/forecast5)
-* [Project Repository](https://github.com/alexis-menendez/SkyWatch)
-* [Live Deployment](https://your-app-name.onrender.com)
+* [Inquirer.js Documentation](https://www.npmjs.com/package/inquirer)
+* [PostgreSQL Documentation](https://www.postgresql.org/docs/)
+* [Project Repository](https://github.com/alexis-menendez/RoleCall)
 * [Walkthrough Video](https://drive.google.com/LINK/GOES/HERE)
 
 ## Acknowledgements
