@@ -3,17 +3,18 @@
 import inquirer from 'inquirer';
 import dotenv from 'dotenv';
 import colors from 'colors';
+import chalk from 'chalk';
 import pkg from 'pg';
 const { Pool } = pkg;
 
 
 dotenv.config();
 
-console.log(colors.rainbow('WELCOME TO EMPLOYEE TRACKER!'));
-console.log(colors.rainbow('LETS GET STARTED!'));
-console.log(colors.rainbow('PLEASE SELECT AN OPTION FROM THE MENU BELOW.'));
-
-
+console.log(colors.bold.magenta('=============================='));
+console.log(colors.bold.magenta.underline('🌟 Welcome to RoleCall! 🌟'));
+console.log(colors.magenta('Manage your employees, roles, and departments with ease!'));
+console.log(colors.magenta('To begin, use the arrow keys to select an option from the menu below!'));
+console.log(colors.bold.magenta('=============================='));
 
 const pool = new Pool({
   user: process.env.DB_USER,
@@ -38,34 +39,43 @@ const mainMenu = async () => {
     {
       type: 'list',
       name: 'mainMenu',
-      message: colors.blue('WHAT WOULD YOU LIKE TO DO?'),
-      choices: ['VIEW ALL DEPARTMENTS', 'VIEW ALL ROLES', 'VIEW ALL EMPLOYEES', 'ADD A DEPARTMENT', 'ADD A ROLE', 'ADD AN EMPLOYEE', 'UPDATE AN EMPLOYEE ROLE', 'EXIT'],
+      message: colors.rainbow('What can I do for ya, Boss?'),
+      choices: [
+        chalk.hex(#FF3B30)('🔍 View All Departments'),
+        chalk.hex(#FF9500)('📋 View All Roles'),
+        chalk.hex(#FFCC00)('🙋 View All Employees'),
+        chalk.hex(#34C759)('➕ Add a Department'),
+        chalk.hex(#007AFF)('➕ Add a Role'),
+        chalk.hex(#AF52DE)('➕ Add an Employee'),
+        chalk.hex(#FF2D55)('✏️ Update an Employee Role'),
+        colors.bgRed.white('❌ Exit')
+      ],
     },
   ]);
 
   switch (answers.mainMenu) {
-    case 'VIEW ALL DEPARTMENTS':
+    case '🔍 View All Departments':
       await viewDepartments();
       break;
-    case 'VIEW ALL ROLES':
+    case '📋 View All Roles':
       await viewRoles();
       break;
-    case 'VIEW ALL EMPLOYEES':
+    case '🙋 View All Employees':
       await viewEmployees();
       break;
-    case 'ADD A DEPARTMENT':
+    case '➕ Add a Department':
       await addDepartment();
       break;
-    case 'ADD A ROLE':
+    case '➕ Add a Role':
       await addRole();
       break;
-    case 'ADD AN EMPLOYEE':
+    case '➕ Add an Employee':
       await addEmployee();
       break;
-    case 'UPDATE AN EMPLOYEE ROLE':
+    case '✏️ Update an Employee Role':
       await updateEmployee();
       break;
-    case 'EXIT':
+    case '❌ Exit':
       process.exit(0);
   }
 
