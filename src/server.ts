@@ -10,11 +10,11 @@ const { Pool } = pkg;
 
 dotenv.config();
 
-console.log(colors.bold.magenta('=============================='));
-console.log(colors.bold.magenta.underline('🌟 Welcome to RoleCall! 🌟'));
-console.log(colors.magenta('Manage your employees, roles, and departments with ease!'));
-console.log(colors.magenta('To begin, use the arrow keys to select an option from the menu below!'));
-console.log(colors.bold.magenta('=============================='));
+console.log(chalk.hex('#AF52DE')('=============================='));  // Purple
+console.log(colors.bold.magenta.underline('🌟 Welcome to RoleCall! 🌟')); // Magenta
+console.log(chalk.hex('#FF2D55')('Manage your employees, roles, and departments with ease!')); // Pink
+console.log(chalk.hex('#FF2D55')('To begin, use the arrow keys to select an option from the menu below!')); // Pink
+console.log(chalk.hex('#AF52DE')('=============================='));  // Purple
 
 const pool = new Pool({
   user: process.env.DB_USER,
@@ -27,9 +27,9 @@ const pool = new Pool({
 const connectToDb = async () => {
   try {
     await pool.connect();
-    console.log('Connected to the database.');
+    console.log('Success: Connected to the database.');
   } catch (err) {
-    console.error('Error connecting to database:', err);
+    console.error('Error: Could not connect to the database:', err);
     process.exit(1);
   }
 };
@@ -39,16 +39,16 @@ const mainMenu = async () => {
     {
       type: 'list',
       name: 'mainMenu',
-      message: colors.rainbow('What can I do for ya, Boss?'),
+      message: colors.rainbow('What can I do for ya, Boss?'), // Rainbow
       choices: [
-        chalk.hex(#FF3B30)('🔍 View All Departments'),
-        chalk.hex(#FF9500)('📋 View All Roles'),
-        chalk.hex(#FFCC00)('🙋 View All Employees'),
-        chalk.hex(#34C759)('➕ Add a Department'),
-        chalk.hex(#007AFF)('➕ Add a Role'),
-        chalk.hex(#AF52DE)('➕ Add an Employee'),
-        chalk.hex(#FF2D55)('✏️ Update an Employee Role'),
-        colors.bgRed.white('❌ Exit')
+        colors.red('🔍 View All Departments'), // Red
+        chalk.hex('#FF9500')('📋 View All Roles'), // Orange
+        colors.yellow('🙋 View All Employees'), // Yellow
+        colors.green('➕ Add a Department'), // Green
+        colors.blue('➕ Add a Role'), // Blue
+        chalk.hex('#AF52DE')('➕ Add an Employee'), // Purple
+        chalk.hex('#FF2D55')('✏️ Update an Employee Role'), // Pink
+        colors.bgRed.white('❌ Exit') // Red background, white text
       ],
     },
   ]);
