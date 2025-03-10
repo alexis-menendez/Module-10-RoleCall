@@ -98,3 +98,10 @@ const viewDepartments = async () => {
   console.table(result.rows);
 };
 
+// view all roles (orange)
+const viewRoles = async () => {
+    const result = await pool.query('SELECT * FROM role');
+    console.log(chalk.hex('#FF9500')('All Roles:'));
+    console.table(result.rows);
+  };
+
