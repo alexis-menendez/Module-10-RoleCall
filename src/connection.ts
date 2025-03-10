@@ -31,3 +31,6 @@ const connectToDb = async () => {
       process.exit(1);
     }
   };
+
+  // export the database pool and connection function for use in other modules
+export { pool, connectToDb };
