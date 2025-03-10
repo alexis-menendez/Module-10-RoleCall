@@ -13,10 +13,10 @@ RoleCall is a command-line application designed to help business owners manage t
 
 **Technology Stack**
 
-* **Back-End:** Node.js, Express.js
-* **Database:** PostgreSQL
-* **CLI Interaction:** Inquirer (version 8.2.4)
-* **Package Management:** npm
+* **Back-End:** [Node.js](https://nodejs.org/), [Express.js](https://expressjs.com/) 
+* **Database:** [PostgreSQL](https://www.npmjs.com/package/pg)
+* **CLI Interaction:** [Inquirer](https://www.npmjs.com/package/inquirer/v/8.2.4), [Colors](https://www.npmjs.com/package/colors), [Chalk](https://www.npmjs.com/package/chalk)
+* **Package Management:** [npm](https://www.npmjs.com/)
 
 ## Table of Contents
 
@@ -35,9 +35,12 @@ RoleCall is a command-line application designed to help business owners manage t
 To set up and run RoleCall on your local machine, follow these steps:
 
 1. Ensure you have the following installed:
+	* [Express.js](https://expressjs.com/) 
 	* [Node.js](https://nodejs.org/) 
-	* npm (Comes bundled with Node.js)
+	* [npm](https://www.npmjs.com/) (Comes bundled with Node.js)
 	* [PostgreSQL](https://www.postgresql.org/)
+	* [Colors](https://www.npmjs.com/package/colors)
+	* [Chalk](https://www.npmjs.com/package/chalk)
    
 2. Clone the [RoleCall](https://github.com/alexis-menendez/RoleCall) repository to your local machine:
 	* Open a terminal or command prompt and run:
