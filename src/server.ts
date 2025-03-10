@@ -13,7 +13,7 @@ dotenv.config();
 
 // display instructions in the console
 console.log(chalk.hex('#AF52DE')('=============================='));  // Purple
-console.log(colors.bold.magenta.underline('🌟 Welcome to RoleCall! 🌟')); // Magenta
+console.log(colors.bold.rainbow.underline('🌈 Welcome to RoleCall! 🌈')); // Magenta
 console.log(chalk.hex('#FF2D55')('Manage your employees, roles, and departments with ease!')); // Pink
 console.log(chalk.hex('#FF2D55')('To begin, use the arrow keys to select an option from the menu below!')); // Pink
 console.log(chalk.hex('#AF52DE')('=============================='));  // Purple
@@ -195,13 +195,13 @@ const addEmployee = async () => {
     {
       type: 'list',
       name: 'EmployeeRole',
-      message: chalk.hex('#AF52DE')('What is the employees role?'),
+      message: chalk.hex('#AF52DE')('What is the employee’s role?'),
       choices: roleChoices,
     },
     {
       type: 'list',
       name: 'EmployeeManager',
-      message: chalk.hex('#AF52DE')('Who is the employees manager?'),
+      message: chalk.hex('#AF52DE')('Who is the employee’s manager?'),
       choices: managerChoices,
     },
   ]);
@@ -216,6 +216,7 @@ const addEmployee = async () => {
 
 // update an employee (pink)
 const updateEmployee = async () => {
+  console.log(chalk.hex('#FF2D55')('Update an Employee:'));
   const employees = await pool.query('SELECT first_name, last_name, role_id, manager_id FROM employee');
   const employeeChoices = employees.rows.map(employee => ({
     name: `${employee.first_name} ${employee.last_name}`,
@@ -242,31 +243,31 @@ const departments = await pool.query('SELECT id, name FROM department');
     {
       type: 'list',
       name: 'updateEmployee',
-      message: colors.magenta('WHICH EMPLOYEE WOULD YOU LIKE TO UPDATE?'),
+      message: chalk.hex('#FF2D55')('Please select the employee whose details need to be updated:'),
       choices: employeeChoices,
     },
     {
       type: 'list',
       name: 'updateRole',
-      message: colors.magenta('WHAT IS THEIR NEW ROLE?'),
+      message: chalk.hex('#FF2D55')('Choose the employee’s updated role:'),
       choices: roleChoices,
     },
     {
       type: 'list',
       name: 'updateManager',
-      message: colors.magenta('WHO IS THEIR NEW MANAGER?'),
+      message: chalk.hex('#FF2D55')('Who will this employee report to?'),
       choices: managerChoices,
     },
     {
       type: 'list',
       name: 'updateDepartment',
-      message: colors.magenta('WHAT IS THEIR NEW DEPARTMENT?'),
+      message: chalk.hex('#FF2D55')('Which department should this employee be assigned to?'),
       choices: departmentChoices,
     },
     {
       type: 'input',
       name: 'updateSalary',
-      message: colors.magenta('WHAT IS THE EMPLOYEE NEW SALARY?'),
+      message: chalk.hex('#FF2D55')('Please enter the updated salary for this employee:'),
     },
   ]);
 
@@ -275,7 +276,7 @@ const departments = await pool.query('SELECT id, name FROM department');
     `UPDATE employee SET role_id = $1, manager_id = $2 WHERE id = $3`, [updateRole, updateManager, updateEmployee]
   );
   await pool.query(`UPDATE role set department_id = $1, salary = $2 WHERE id = $3`, [updateDepartment, updateSalary, updateRole]);
-  console.log('Employee updated successfully!');
+  console.log(colors.rainbow('✅ Success: Employee updated successfully!'));
 };
 
 // connect to the database and show the main menu
