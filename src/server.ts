@@ -89,28 +89,28 @@ const mainMenu = async () => {
   await mainMenu();
 };
 
-// view all departments
+// view all departments (red)
 const viewDepartments = async () => {
   const result = await pool.query('SELECT * FROM department');
   console.log(colors.red('All Departments:'));
   console.table(result.rows);
 };
 
-// view all roles
+// view all roles (orange)
 const viewRoles = async () => {
   const result = await pool.query('SELECT * FROM role');
   console.log(chalk.hex('#FF9500')('All Roles:'));
   console.table(result.rows);
 };
 
-// view all employees
+// view all employees (yellow)
 const viewEmployees = async () => {
   const result = await pool.query('SELECT * FROM employee');
   console.log(colors.yellow('All Employees:'));
   console.table(result.rows);
 };
 
-// add a department
+// add a department (green)
 const addDepartment = async () => {
   console.log(colors.green('Add a Department:'));
   const answers = await inquirer.prompt([
@@ -126,11 +126,12 @@ const addDepartment = async () => {
     `INSERT INTO department (name) VALUES ($1);`,
     [departmentName]
   );
-  console.log(colors.cyan('✅ Success: Department Inserted!'));
+  console.log(colors.rainbow('✅ Success: Department Inserted!'));
 };
 
-// add a role
+// add a role (blue)
 const addRole = async () => {
+  console.log(colors.blue('Add a Role:'));
   const departments = await pool.query('SELECT id, name FROM department');
   const departmentChoices = departments.rows.map(department => ({
     name: department.name,
@@ -161,11 +162,12 @@ const addRole = async () => {
     `INSERT INTO role (title, salary, department_id) VALUES ($1, $2, $3)`,
     [roleTitle, roleSalary, roleDepartment]
   );
-  console.log(colors.green('✅ Success: Role Inserted!'));
+  console.log(colors.rainbow('✅ Success: Role Inserted!'));
 };
 
-// add an employee
+// add an employee (purple)
 const addEmployee = async () => {
+  console.log(chalk.hex('#AF52DE')('Add an Employee:'));
   const roles = await pool.query('SELECT id, title FROM role');
   const roleChoices = roles.rows.map(role => ({
     name: role.title,
@@ -183,23 +185,23 @@ const addEmployee = async () => {
     {
       type: 'input',
       name: 'EmployeeFirstName',
-      message: colors.red('WHAT IS THE EMPLOYEE FIRST NAME?'),
+      message: chalk.hex('#AF52DE')('What is the first name of the employee?'),
     },
     {
       type: 'input',
       name: 'EmployeeLastName',
-      message: colors.red('WHAT IS THE EMPLOYEE LAST NAME?'),
+      message: chalk.hex('#AF52DE')('What is the last name of the employee?'),
     },
     {
       type: 'list',
       name: 'EmployeeRole',
-      message: colors.red('WHAT IS THE EMPLOYEE ROLE?'),
+      message: chalk.hex('#AF52DE')('What is the employees role?'),
       choices: roleChoices,
     },
     {
       type: 'list',
       name: 'EmployeeManager',
-      message: colors.red('WHO IS THE EMPLOYEE MANAGER?'),
+      message: chalk.hex('#AF52DE')('Who is the employees manager?'),
       choices: managerChoices,
     },
   ]);
@@ -209,10 +211,10 @@ const addEmployee = async () => {
     `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ($1, $2, $3, $4)`,
     [EmployeeFirstName, EmployeeLastName, EmployeeRole, EmployeeManager]
   );
-  console.log('Employee inserted successfully!');
+  console.log(colors.rainbow('✅ Success: Employee Inserted!'));
 };
 
-// update an employee
+// update an employee (pink)
 const updateEmployee = async () => {
   const employees = await pool.query('SELECT first_name, last_name, role_id, manager_id FROM employee');
   const employeeChoices = employees.rows.map(employee => ({
