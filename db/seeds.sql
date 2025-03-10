@@ -21,7 +21,7 @@ VALUES ('Master of Myth (Lead Storyteller)', 15000, 1),
        ('Keeper of Quibbles (Dialogue Specialist)', 10000, 1),
        ('Scribe of the Forgotten (Lore Archivist)', 5000, 1),
        ('Enchanter of Motion (Lead Animator)', 15000, 2),
-       ('Keeper of Sparkles (Lighting & Effects Specialist)', 10000, 2);
+       ('Keeper of Sparkles (Lighting & Effects Specialist)', 10000, 2),
        ('Architect of Wonder (Background & Environment Artist)', 5000, 2),
        ('Maestro of Melodies (Lead Sound Designer)', 15000, 3),
        ('Weaver of Echos (Foley Artist)', 10000, 3),
