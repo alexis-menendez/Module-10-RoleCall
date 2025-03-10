@@ -59,3 +59,35 @@ const mainMenu = async () => {
         ],
       },
     ]);
+
+  // switch case to execute menu selections
+  switch (answers.mainMenu) {
+    case '🔍 View All Departments':
+      await viewDepartments();
+      break;
+    case '📋 View All Roles':
+      await viewRoles();
+      break;
+    case '🙋 View All Employees':
+      await viewEmployees();
+      break;
+    case '➕ Add a Department':
+      await addDepartment();
+      break;
+    case '➕ Add a Role':
+      await addRole();
+      break;
+    case '➕ Add an Employee':
+      await addEmployee();
+      break;
+    case '✏️ Update an Employee Role':
+      await updateEmployee();
+      break;
+    case '❌ Exit':
+      process.exit(0);
+  }
+
+  // Show the menu after completing an action
+  await mainMenu();
+};
+
