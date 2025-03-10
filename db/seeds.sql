@@ -1,16 +1,17 @@
 -- File path: rolecall/db/seeds.sql
 
+-- Insert departments into the department table
 INSERT INTO department (name)
 VALUES ('Moss & Mushroom Storytelling (Script Writing Department)'),
        ('Twinkle & Twig Animators (Animation Department)'),
        ('Whimsy Acoustics & Enchantment Soundscapes (Sound Design Department)'),
        ('Rainbow Beam Projection (Screening Department)'),
-       ('Harmonious Roots (Voice Acting Department)');
-       ('Gnome-Unicorn Relations (Public Relations Department)'),
+       ('Harmonious Roots (Voice Acting Department)'),
+       ('Gnome-Unicorn Relations (Public Relations Department)');
        ('Gilded Toadstool Council (Management Department)');
        ('Hollow Oak Compliance Keepers (Human Resources Department)');
 
-
+-- Insert job roles into the role table, linking each role to a department
 INSERT INTO role (
     title, 
     salary, 
@@ -41,6 +42,7 @@ VALUES ('Master of Myth (Lead Storyteller)', 15000, 1),
        ('Scribe of Settlements (Employee Relations Specialist) ', 10000, 8),
        ('Keeper of Gilded Contracts (Recruitment & Retention Specialist)', 5000, 8),
 
+-- Insert employees into the employee table, linking each employee to a role and optionally to a manager
 INSERT INTO employee (
     first_name, 
     last_name, 
