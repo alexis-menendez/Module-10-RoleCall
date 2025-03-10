@@ -29,3 +29,14 @@ const pool = new Pool({
     port: 5432,
   });
 
+// connect to the database and handle errors
+const connectToDb = async () => {
+  try {
+    await pool.connect();
+    console.log(colors.rainbow('✅ Success: Connected to the database.'));
+  } catch (err) {
+    console.error(colors.red('❌ Error: Could not connect to the database.'), err);
+    process.exit(1);
+  }
+};
+
