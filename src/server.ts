@@ -9,3 +9,6 @@ import chalk from 'chalk';
 import dotenv from 'dotenv';
 dotenv.config();
 
+// import PostgreSQL client for database connection & destructure Pool class from pg package
+import pkg from 'pg';
+const { Pool } = pkg;
