@@ -1,9 +1,9 @@
 -- File path: rolecall/db/schema.sql
 
-DROP DATABASE IF EXISTS employees_db;
-CREATE DATABASE employees_db;
+DROP DATABASE IF EXISTS rolecall_db;
+CREATE DATABASE rolecall_db;
 
-\c employees_db;
+\c rolecall_db;
 
 CREATE TABLE department (
     id SERIAL PRIMARY KEY,
