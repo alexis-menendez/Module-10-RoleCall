@@ -2,14 +2,16 @@
 
 // Import necessary moduloes
 import inquirer from 'inquirer';
-import dotenv from 'dotenv';
 import colors from 'colors';
 import chalk from 'chalk';
-import pkg from 'pg';
-const { Pool } = pkg;
 
 // load environtmental variable from .env file
+import dotenv from 'dotenv';
 dotenv.config();
+
+// import PostgreSQL client for database connection & destructure Pool class from pg package
+import pkg from 'pg';
+const { Pool } = pkg;
 
 // display instructions in the console
 console.log(chalk.hex('#AF52DE')('=============================='));  // Purple
@@ -31,9 +33,9 @@ const pool = new Pool({
 const connectToDb = async () => {
   try {
     await pool.connect();
-    console.log('✅ Success: Connected to the database.');
+    console.log(colors.rainbow('✅ Success: Connected to the database.'));
   } catch (err) {
-    console.error('❌ Error: Could not connect to the database:', err);
+    console.error(colors.red('❌ Error: Could not connect to the database.'), err);
     process.exit(1);
   }
 };
