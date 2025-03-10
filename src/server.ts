@@ -20,3 +20,12 @@ console.log(chalk.hex('#FF2D55')('Manage your employees, roles, and departments 
 console.log(chalk.hex('#FF2D55')('To begin, use the arrow keys to select an option from the menu below!')); // Pink
 console.log(chalk.hex('#AF52DE')('=============================='));  // Purple
 
+// create a postgreSQL connection pool using environmental variables
+const pool = new Pool({
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    host: 'localhost',
+    database: process.env.DB_NAME,
+    port: 5432,
+  });
+
