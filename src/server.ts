@@ -1,5 +1,6 @@
 //File path: rolecall/src/server.ts
 
+// Import necessary moduloes
 import inquirer from 'inquirer';
 import dotenv from 'dotenv';
 import colors from 'colors';
@@ -7,15 +8,17 @@ import chalk from 'chalk';
 import pkg from 'pg';
 const { Pool } = pkg;
 
-
+// load environtmental variable from .env file
 dotenv.config();
 
+// display instructions in the console
 console.log(chalk.hex('#AF52DE')('=============================='));  // Purple
 console.log(colors.bold.magenta.underline('🌟 Welcome to RoleCall! 🌟')); // Magenta
 console.log(chalk.hex('#FF2D55')('Manage your employees, roles, and departments with ease!')); // Pink
 console.log(chalk.hex('#FF2D55')('To begin, use the arrow keys to select an option from the menu below!')); // Pink
 console.log(chalk.hex('#AF52DE')('=============================='));  // Purple
 
+// create a postgreSQL connection pool using environmental variables
 const pool = new Pool({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
@@ -24,16 +27,18 @@ const pool = new Pool({
   port: 5432,
 });
 
+// connect to the database and handle errors
 const connectToDb = async () => {
   try {
     await pool.connect();
-    console.log('Success: Connected to the database.');
+    console.log('✅ Success: Connected to the database.');
   } catch (err) {
-    console.error('Error: Could not connect to the database:', err);
+    console.error('❌ Error: Could not connect to the database:', err);
     process.exit(1);
   }
 };
 
+// display the main menu
 const mainMenu = async () => {
   const answers = await inquirer.prompt([
     {
@@ -53,6 +58,7 @@ const mainMenu = async () => {
     },
   ]);
 
+  // switch case to execute menu selections
   switch (answers.mainMenu) {
     case '🔍 View All Departments':
       await viewDepartments();
@@ -79,31 +85,39 @@ const mainMenu = async () => {
       process.exit(0);
   }
 
-  // Show the menu again after completing the action
+  // Show the menu after completing an action
   await mainMenu();
 };
 
+// view all departments
 const viewDepartments = async () => {
   const result = await pool.query('SELECT * FROM department');
+  console.log(colors.red('All Departments:'));
   console.table(result.rows);
 };
 
+// view all roles
 const viewRoles = async () => {
   const result = await pool.query('SELECT * FROM role');
+  console.log(chalk.hex('#FF9500')('All Roles:'));
   console.table(result.rows);
 };
 
+// view all employees
 const viewEmployees = async () => {
   const result = await pool.query('SELECT * FROM employee');
+  console.log(colors.yellow('All Employees:'));
   console.table(result.rows);
 };
 
+// add a department
 const addDepartment = async () => {
+  console.log(colors.green('Add a Department:'));
   const answers = await inquirer.prompt([
     {
       type: 'input',
       name: 'departmentName',
-      message: colors.cyan('WHAT IS THE NAME OF THE DEPARTMENT?'),
+      message: colors.green('What is the department name?'),
     },
   ]);
 
@@ -112,9 +126,10 @@ const addDepartment = async () => {
     `INSERT INTO department (name) VALUES ($1);`,
     [departmentName]
   );
-  console.log(colors.green('Department inserted successfully!'));
+  console.log(colors.cyan('✅ Success: Department Inserted!'));
 };
 
+// add a role
 const addRole = async () => {
   const departments = await pool.query('SELECT id, name FROM department');
   const departmentChoices = departments.rows.map(department => ({
@@ -126,17 +141,17 @@ const addRole = async () => {
     {
       type: 'input',
       name: 'roleTitle',
-      message: colors.yellow('WHAT IS THE ROLE TITLE?'),
+      message: colors.blue('What is the title for this role?'),
     },
     {
       type: 'input',
       name: 'roleSalary',
-      message: colors.yellow('WHAT IS THE ROLE SALARY?'),
+      message: colors.blue('What is the salary for this role?'),
     },
     {
       type: 'list',
       name: 'roleDepartment',
-      message: colors.yellow('WHAT DEPARTMENT IS THE ROLE IN?'),
+      message: colors.blue('What department is this role in?'),
       choices: departmentChoices,
     },
   ]);
@@ -146,9 +161,10 @@ const addRole = async () => {
     `INSERT INTO role (title, salary, department_id) VALUES ($1, $2, $3)`,
     [roleTitle, roleSalary, roleDepartment]
   );
-  console.log('Role inserted successfully!');
+  console.log(colors.green('✅ Success: Role Inserted!'));
 };
 
+// add an employee
 const addEmployee = async () => {
   const roles = await pool.query('SELECT id, title FROM role');
   const roleChoices = roles.rows.map(role => ({
@@ -196,6 +212,7 @@ const addEmployee = async () => {
   console.log('Employee inserted successfully!');
 };
 
+// update an employee
 const updateEmployee = async () => {
   const employees = await pool.query('SELECT first_name, last_name, role_id, manager_id FROM employee');
   const employeeChoices = employees.rows.map(employee => ({
@@ -259,6 +276,7 @@ const departments = await pool.query('SELECT id, name FROM department');
   console.log('Employee updated successfully!');
 };
 
+// connect to the database and show the main menu
 connectToDb().then(() => {
   mainMenu();
 });
