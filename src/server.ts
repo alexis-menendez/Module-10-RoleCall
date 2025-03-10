@@ -12,3 +12,11 @@ dotenv.config();
 // import PostgreSQL client for database connection & destructure Pool class from pg package
 import pkg from 'pg';
 const { Pool } = pkg;
+
+// display instructions in the console
+console.log(chalk.hex('#AF52DE')('=============================='));  // Purple
+console.log(colors.bold.rainbow.underline('🌈 Welcome to RoleCall! 🌈')); // Magenta
+console.log(chalk.hex('#FF2D55')('Manage your employees, roles, and departments with ease!')); // Pink
+console.log(chalk.hex('#FF2D55')('To begin, use the arrow keys to select an option from the menu below!')); // Pink
+console.log(chalk.hex('#AF52DE')('=============================='));  // Purple
+
