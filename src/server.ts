@@ -167,4 +167,53 @@ const addRole = async () => {
   console.log(colors.rainbow('✅ Success: Role Inserted!'));
 };
 
+// add an employee (purple)
+const addEmployee = async () => {
+    console.log(chalk.hex('#AF52DE')('Add an Employee:'));
+    const roles = await pool.query('SELECT id, title FROM role');
+    const roleChoices = roles.rows.map(role => ({
+      name: role.title,
+      value: role.id,
+    }));
+  
+    const employees = await pool.query('SELECT id, first_name, last_name FROM employee');
+    const managerChoices = employees.rows.map(employee => ({
+      name: `${employee.first_name} ${employee.last_name}`,
+      value: employee.id,
+    }));
+    managerChoices.push({ name: 'None', value: null });
+  
+    const answers = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'EmployeeFirstName',
+        message: chalk.hex('#AF52DE')('What is the first name of the employee?'),
+      },
+      {
+        type: 'input',
+        name: 'EmployeeLastName',
+        message: chalk.hex('#AF52DE')('What is the last name of the employee?'),
+      },
+      {
+        type: 'list',
+        name: 'EmployeeRole',
+        message: chalk.hex('#AF52DE')('What is the employee’s role?'),
+        choices: roleChoices,
+      },
+      {
+        type: 'list',
+        name: 'EmployeeManager',
+        message: chalk.hex('#AF52DE')('Who is the employee’s manager?'),
+        choices: managerChoices,
+      },
+    ]);
+  
+    const { EmployeeFirstName, EmployeeLastName, EmployeeRole, EmployeeManager } = answers;
+    await pool.query(
+      `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ($1, $2, $3, $4)`,
+      [EmployeeFirstName, EmployeeLastName, EmployeeRole, EmployeeManager]
+    );
+    console.log(colors.rainbow('✅ Success: Employee Inserted!'));
+  };
+
 
