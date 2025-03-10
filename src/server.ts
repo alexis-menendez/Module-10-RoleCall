@@ -112,3 +112,23 @@ const viewEmployees = async () => {
   console.table(result.rows);
 };
 
+// add a department (green)
+const addDepartment = async () => {
+  console.log(colors.green('Add a Department:'));
+  const answers = await inquirer.prompt([
+    {
+      type: 'input',
+      name: 'departmentName',
+      message: colors.green('What is the department name?'),
+    },
+  ]);
+
+  const { departmentName } = answers;
+  await pool.query(
+    `INSERT INTO department (name) VALUES ($1);`,
+    [departmentName]
+  );
+  console.log(colors.rainbow('✅ Success: Department Inserted!'));
+};
+
+
