@@ -1,0 +1,4 @@
+# File path: rolecall/.gitignore
+
+dist
+node_modules
