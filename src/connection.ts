@@ -8,3 +8,7 @@ import colors from 'colors';
 import dotenv from 'dotenv';
 dotenv.config();
 
+// import PostgreSQL client for database connection & destructure Pool class from pg package
+import pg from 'pg';
+const { Pool } = pg;
+
