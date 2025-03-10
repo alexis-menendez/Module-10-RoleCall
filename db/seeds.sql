@@ -7,8 +7,8 @@ VALUES ('Moss & Mushroom Storytelling (Script Writing Department)'),
        ('Whimsy Acoustics & Enchantment Soundscapes (Sound Design Department)'),
        ('Rainbow Beam Projection (Screening Department)'),
        ('Harmonious Roots (Voice Acting Department)'),
-       ('Gnome-Unicorn Relations (Public Relations Department)');
-       ('Gilded Toadstool Council (Management Department)');
+       ('Gnome-Unicorn Relations (Public Relations Department)'),
+       ('Gilded Toadstool Council (Management Department)'),
        ('Hollow Oak Compliance Keepers (Human Resources Department)');
 
 -- Insert job roles into the role table, linking each role to a department
@@ -40,7 +40,7 @@ VALUES ('Master of Myth (Lead Storyteller)', 15000, 1),
        ('Architect of Budgets (Financial Strategy Wizard)', 5000, 7),
        ('Warden of Workplace Wonders (Lead HR Compliance Officer)', 15000, 8),
        ('Scribe of Settlements (Employee Relations Specialist) ', 10000, 8),
-       ('Keeper of Gilded Contracts (Recruitment & Retention Specialist)', 5000, 8),
+       ('Keeper of Gilded Contracts (Recruitment & Retention Specialist)', 5000, 8);
 
 -- Insert employees into the employee table, linking each employee to a role and optionally to a manager
 INSERT INTO employee (
@@ -53,15 +53,15 @@ VALUES ('Allie', 'Allensburg', 1, 7),
        ('Betty', 'Brickson', 4, 7),
        ('Callie', 'Carlson', 7, 7),
        ('Divy', 'Dawson', 10, 7),
-       ('Ellie', 'Ellis', 13, 7);
-       ('Filly', 'Fletcher', 16, 7);
-       ('Gelli', 'Gilmore', 19, null);
-       ('Hallie', 'Hawthorne', 22, 7);
-       ('Illy', 'Ingram', 2, 1);
-       ('Jelly', 'Jennings', 5, 2);
-       ('Kallie', 'Kensington', 8, 3);
-       ('Lellie', 'Lancaster', 11, 4);
-       ('Millie', 'Meadows', 14, 5);
-       ('Nellie', 'Northwood', 17, 6);
+       ('Ellie', 'Ellis', 13, 7),
+       ('Filly', 'Fletcher', 16, 7),
+       ('Gelli', 'Gilmore', 19, null),
+       ('Hallie', 'Hawthorne', 22, 7),
+       ('Illy', 'Ingram', 2, 1),
+       ('Jelly', 'Jennings', 5, 2),
+       ('Kallie', 'Kensington', 8, 3),
+       ('Lellie', 'Lancaster', 11, 4),
+       ('Millie', 'Meadows', 14, 5),
+       ('Nellie', 'Northwood', 17, 6),
        ('Ollie', 'Oakwood', 20, 8);
       
