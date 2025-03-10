@@ -216,4 +216,69 @@ const addEmployee = async () => {
     console.log(colors.rainbow('✅ Success: Employee Inserted!'));
   };
 
+// update an employee (pink)
+const updateEmployee = async () => {
+    console.log(chalk.hex('#FF2D55')('Update an Employee:'));
+    const employees = await pool.query('SELECT first_name, last_name, role_id, manager_id FROM employee');
+    const employeeChoices = employees.rows.map(employee => ({
+      name: `${employee.first_name} ${employee.last_name}`,
+      value: employee.id,
+    }));
+    
+  const departments = await pool.query('SELECT id, name FROM department');
+    const departmentChoices = departments.rows.map(department => ({
+      name: department.name,
+      value: department.id,
+    }));
+  
+    const managerChoices = employees.rows.map(employee => ({
+      name: `${employee.first_name} ${employee.last_name}`,
+      value: employee.id}));
+         
+    const roles = await pool.query('SELECT id, title FROM role');
+    const roleChoices = roles.rows.map(role => ({
+      name: role.title,
+      value: role.id,
+    }));
+  
+    const answers = await inquirer.prompt([
+      {
+        type: 'list',
+        name: 'updateEmployee',
+        message: chalk.hex('#FF2D55')('Please select the employee whose details need to be updated:'),
+        choices: employeeChoices,
+      },
+      {
+        type: 'list',
+        name: 'updateRole',
+        message: chalk.hex('#FF2D55')('Choose the employee’s updated role:'),
+        choices: roleChoices,
+      },
+      {
+        type: 'list',
+        name: 'updateManager',
+        message: chalk.hex('#FF2D55')('Who will this employee report to?'),
+        choices: managerChoices,
+      },
+      {
+        type: 'list',
+        name: 'updateDepartment',
+        message: chalk.hex('#FF2D55')('Which department should this employee be assigned to?'),
+        choices: departmentChoices,
+      },
+      {
+        type: 'input',
+        name: 'updateSalary',
+        message: chalk.hex('#FF2D55')('Please enter the updated salary for this employee:'),
+      },
+    ]);
+  
+    const { updateEmployee, updateRole, updateManager, updateDepartment, updateSalary } = answers;
+    await pool.query(
+      `UPDATE employee SET role_id = $1, manager_id = $2 WHERE id = $3`, [updateRole, updateManager, updateEmployee]
+    );
+    await pool.query(`UPDATE role set department_id = $1, salary = $2 WHERE id = $3`, [updateDepartment, updateSalary, updateRole]);
+    console.log(colors.rainbow('✅ Success: Employee updated successfully!'));
+  };
+
 
