@@ -131,4 +131,40 @@ const addDepartment = async () => {
   console.log(colors.rainbow('✅ Success: Department Inserted!'));
 };
 
+// add a role (blue)
+const addRole = async () => {
+  console.log(colors.blue('Add a Role:'));
+  const departments = await pool.query('SELECT id, name FROM department');
+  const departmentChoices = departments.rows.map(department => ({
+    name: department.name,
+    value: department.id,
+  }));
+
+  const answers = await inquirer.prompt([
+    {
+      type: 'input',
+      name: 'roleTitle',
+      message: colors.blue('What is the title for this role?'),
+    },
+    {
+      type: 'input',
+      name: 'roleSalary',
+      message: colors.blue('What is the salary for this role?'),
+    },
+    {
+      type: 'list',
+      name: 'roleDepartment',
+      message: colors.blue('What department is this role in?'),
+      choices: departmentChoices,
+    },
+  ]);
+
+  const { roleTitle, roleSalary, roleDepartment } = answers;
+  await pool.query(
+    `INSERT INTO role (title, salary, department_id) VALUES ($1, $2, $3)`,
+    [roleTitle, roleSalary, roleDepartment]
+  );
+  console.log(colors.rainbow('✅ Success: Role Inserted!'));
+};
+
 
