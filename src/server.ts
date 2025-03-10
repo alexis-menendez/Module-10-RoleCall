@@ -40,3 +40,22 @@ const connectToDb = async () => {
   }
 };
 
+// display the main menu
+const mainMenu = async () => {
+    const answers = await inquirer.prompt([
+      {
+        type: 'list',
+        name: 'mainMenu',
+        message: colors.rainbow('What can I do for ya, Boss?'), // Rainbow
+        choices: [
+          colors.red('🔍 View All Departments'), // Red
+          chalk.hex('#FF9500')('📋 View All Roles'), // Orange
+          colors.yellow('🙋 View All Employees'), // Yellow
+          colors.green('➕ Add a Department'), // Green
+          colors.blue('➕ Add a Role'), // Blue
+          chalk.hex('#AF52DE')('➕ Add an Employee'), // Purple
+          chalk.hex('#FF2D55')('✏️ Update an Employee Role'), // Pink
+          colors.bgRed.white('❌ Exit') // Red background, white text
+        ],
+      },
+    ]);
