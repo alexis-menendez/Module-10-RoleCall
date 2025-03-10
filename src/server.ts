@@ -281,4 +281,7 @@ const updateEmployee = async () => {
     console.log(colors.rainbow('✅ Success: Employee updated successfully!'));
   };
 
-
+// connect to the database and show the main menu
+connectToDb().then(() => {
+    mainMenu();
+  });
