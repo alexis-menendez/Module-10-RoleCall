@@ -105,3 +105,10 @@ const viewRoles = async () => {
     console.table(result.rows);
   };
 
+// view all employees (yellow)
+const viewEmployees = async () => {
+  const result = await pool.query('SELECT * FROM employee');
+  console.log(colors.yellow('All Employees:'));
+  console.table(result.rows);
+};
+
