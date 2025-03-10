@@ -91,3 +91,10 @@ const mainMenu = async () => {
   await mainMenu();
 };
 
+// view all departments (red)
+const viewDepartments = async () => {
+  const result = await pool.query('SELECT * FROM department');
+  console.log(colors.red('All Departments:'));
+  console.table(result.rows);
+};
+
