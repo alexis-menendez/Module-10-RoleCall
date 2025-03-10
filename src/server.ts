@@ -33,9 +33,9 @@ const pool = new Pool({
 const connectToDb = async () => {
   try {
     await pool.connect();
-    console.log(colors.rainbow('✅ Success: Connected to the database.'));
+    console.log(colors.rainbow('✅ Success: Connected to the database!'));
   } catch (err) {
-    console.error(colors.red('❌ Error: Could not connect to the database.'), err);
+    console.error(colors.red('❌ Error: Could not connect to the database!'), err);
     process.exit(1);
   }
 };
@@ -49,12 +49,12 @@ const mainMenu = async () => {
         message: colors.rainbow('What can I do for ya, Boss?'), // Rainbow
         choices: [
           colors.red('🔍 View All Departments'), // Red
-          chalk.hex('#FF9500')('📋 View All Roles'), // Orange
-          colors.yellow('🙋 View All Employees'), // Yellow
+          chalk.hex('#FF9500')('🙋 View All Employees'), // Orange
+          colors.yellow('📋 View All Roles'), // Yellow
           colors.green('➕ Add a Department'), // Green
-          colors.blue('➕ Add a Role'), // Blue
-          chalk.hex('#AF52DE')('➕ Add an Employee'), // Purple
-          chalk.hex('#FF2D55')('✏️ Update an Employee Role'), // Pink
+          colors.blue('➕ Add an Employee'), // Blue
+          chalk.hex('#AF52DE')('➕ Add a Role'), // Purple
+          chalk.hex('#FF2D55')('✏️ Update an Employee'), // Pink
           colors.bgRed.white('❌ Exit') // Red background, white text
         ],
       },
@@ -65,22 +65,22 @@ const mainMenu = async () => {
     case '🔍 View All Departments':
       await viewDepartments();
       break;
-    case '📋 View All Roles':
-      await viewRoles();
-      break;
     case '🙋 View All Employees':
       await viewEmployees();
+      break;
+    case '📋 View All Roles':
+      await viewRoles();
       break;
     case '➕ Add a Department':
       await addDepartment();
       break;
-    case '➕ Add a Role':
-      await addRole();
-      break;
     case '➕ Add an Employee':
       await addEmployee();
       break;
-    case '✏️ Update an Employee Role':
+    case '➕ Add a Role':
+      await addRole();
+      break;
+    case '✏️ Update an Employee':
       await updateEmployee();
       break;
     case '❌ Exit':
@@ -98,6 +98,15 @@ const viewDepartments = async () => {
   console.table(result.rows);
 };
 
+// NEED TO SWITCH TO ORANGE
+// view all employees (yellow)
+const viewEmployees = async () => {
+    const result = await pool.query('SELECT * FROM employee');
+    console.log(colors.yellow('All Employees:'));
+    console.table(result.rows);
+  };
+
+// NEED TO SWITCH TO YELLOW
 // view all roles (orange)
 const viewRoles = async () => {
     const result = await pool.query('SELECT * FROM role');
@@ -105,12 +114,6 @@ const viewRoles = async () => {
     console.table(result.rows);
   };
 
-// view all employees (yellow)
-const viewEmployees = async () => {
-  const result = await pool.query('SELECT * FROM employee');
-  console.log(colors.yellow('All Employees:'));
-  console.table(result.rows);
-};
 
 // add a department (green)
 const addDepartment = async () => {
@@ -131,42 +134,7 @@ const addDepartment = async () => {
   console.log(colors.rainbow('✅ Success: Department Inserted!'));
 };
 
-// add a role (blue)
-const addRole = async () => {
-  console.log(colors.blue('Add a Role:'));
-  const departments = await pool.query('SELECT id, name FROM department');
-  const departmentChoices = departments.rows.map(department => ({
-    name: department.name,
-    value: department.id,
-  }));
-
-  const answers = await inquirer.prompt([
-    {
-      type: 'input',
-      name: 'roleTitle',
-      message: colors.blue('What is the title for this role?'),
-    },
-    {
-      type: 'input',
-      name: 'roleSalary',
-      message: colors.blue('What is the salary for this role?'),
-    },
-    {
-      type: 'list',
-      name: 'roleDepartment',
-      message: colors.blue('What department is this role in?'),
-      choices: departmentChoices,
-    },
-  ]);
-
-  const { roleTitle, roleSalary, roleDepartment } = answers;
-  await pool.query(
-    `INSERT INTO role (title, salary, department_id) VALUES ($1, $2, $3)`,
-    [roleTitle, roleSalary, roleDepartment]
-  );
-  console.log(colors.rainbow('✅ Success: Role Inserted!'));
-};
-
+// NEED TO SWITCH TO BLUE
 // add an employee (purple)
 const addEmployee = async () => {
     console.log(chalk.hex('#AF52DE')('Add an Employee:'));
@@ -215,6 +183,43 @@ const addEmployee = async () => {
     );
     console.log(colors.rainbow('✅ Success: Employee Inserted!'));
   };
+
+// NEED TO SWITCH TO PURPLE
+// add a role (blue)
+const addRole = async () => {
+  console.log(colors.blue('Add a Role:'));
+  const departments = await pool.query('SELECT id, name FROM department');
+  const departmentChoices = departments.rows.map(department => ({
+    name: department.name,
+    value: department.id,
+  }));
+
+  const answers = await inquirer.prompt([
+    {
+      type: 'input',
+      name: 'roleTitle',
+      message: colors.blue('What is the title for this role?'),
+    },
+    {
+      type: 'input',
+      name: 'roleSalary',
+      message: colors.blue('What is the salary for this role?'),
+    },
+    {
+      type: 'list',
+      name: 'roleDepartment',
+      message: colors.blue('What department is this role in?'),
+      choices: departmentChoices,
+    },
+  ]);
+
+  const { roleTitle, roleSalary, roleDepartment } = answers;
+  await pool.query(
+    `INSERT INTO role (title, salary, department_id) VALUES ($1, $2, $3)`,
+    [roleTitle, roleSalary, roleDepartment]
+  );
+  console.log(colors.rainbow('✅ Success: Role Inserted!'));
+};
 
 // update an employee (pink)
 const updateEmployee = async () => {
