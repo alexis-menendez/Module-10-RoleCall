@@ -144,11 +144,15 @@ There are currently no automated tests for this project
 
 ## Acknowledgements
 
-* I used Github Copilot to help me write the code for this project, primarily its suggestive text feature which enabled me to write code faster.
-* I also used ChatGPT to:
-  	* Provide assistance debugging my code. I am happy to provide transcripts of the conversation with ChatGPT upon request.
+1. I used Github Copilot to help me write the code for this project, primarily its suggestive text feature which enabled me to write code faster.
+
+2. I also used ChatGPT to:
+  	* Provide assitance debugging my code. I am happy to provide transcripts of the conversation with ChatGPT upon request.
   	* Review my completed project and offer suggestions for improvement.
   	* Create detailed explanations for certain concepts which informed my writing.
+  	* Create comments explaining parts of my code (this ended up being more of a bane than a boon as it also rewrote sections of my code without me realizing which broke things, lesson learned!)
+
+3. Lastly, I got help from Robin ([Zomblic](https://github.com/zomblic)), who helped walk me through what I needed to do an allowed me to look at her code to create a TODO list for me to follow.
 
 ## Contact
 
